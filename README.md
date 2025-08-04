@@ -2,18 +2,18 @@
 
 [![Powered by DataGym.io](https://img.shields.io/badge/Powered%20by-DataGym.io-%23005FFF?style=for-the-badge\&logo=data\&logoColor=white)](https://www.datagym.io)
 
-> 🚨 **IMPORTANT NOTICE – WORKSHOP TEMPLATE**
-> This repository is used **exclusively for the DataGym.io workshop**.
+> 🚨 **IMPORTANT NOTICE – BOOTCAMP TEMPLATE**
+> This repository is used **exclusively for the DataGym.io dbt mini bootcamp**.
 >
 > ✅ To work on your project:
 >
 > 1. **Clone this repository**
 >
 >    ```bash
->    git clone https://github.com/datagym-io/dbt-workshop-empty.git
+>    git clone https://github.com/datagym-io/2025-08-dbt-mini-bootcamp.git
 >    ```
 >    ```bash
->    cd dbt-workshop-empty
+>    cd 2025-08-dbt-mini-bootcamp
 >    ```
 > 2. **Create your own branch** (replace `<your_name>`):
 >
@@ -51,11 +51,12 @@ The Halloween season is near, but something is wrong:
 
 You’ve been tasked with answering:
 
-1. Which haunted houses have the happiest visitors?
-2. Are VIP visitors actually more satisfied?
-3. Which ticket type delivers the best value?
-4. Is there a link between fear level and ratings?
-5. Are some visitor types more likely to recommend?
+1. What are the top selling products?
+2. How do daily wait times correlate with customer satisfaction scores?
+3. What are our most expensive costs?
+4. What are the most common types of incidents per haunted house?
+5. And more
+
 
 ---
 
@@ -103,7 +104,7 @@ This will create your raw tables.
 
 ## ⚙️ Setting Up dbt Fusion
 
-We’ll use **dbt Fusion**, the new Rust-powered dbt engine.
+We’ll use **dbt Fusion**, the new Rust-powered dbt engine. dbt Fusion is still in beta, so sometimes we might use dbt Core. If you use Windows, read below.
 
 ### ✅ Option 1 (Recommended): Install via VS Code Extension
 
@@ -139,7 +140,7 @@ If you're using Windows, we highly recommend enabling [WSL (Windows Subsystem fo
 This ensures full compatibility and avoids common issues when installing dbt and Python dependencies natively on Windows.
 
 #### Windows (Native PowerShell - Not Fully Supported)
-> [!WARNING]  
+> [!WARNING]
 > Native Windows installation is not officially supported and might not work for all users. Some workshop participants in > Brazil managed to install it this way, but YMMV.
 
 To try installing dbt Fusion CLI natively via PowerShell:
@@ -223,7 +224,7 @@ You should see a confirmation like:
 
 <img src="./images/connection.png" alt="Account Identifier" width="400"/>
 
-> [!WARNING]  
+> [!WARNING]
 > If you face an error in Windows that says the `profiles.yml` was not found
 > Probably it was created within a .dbt folder in your project.
 > Move the profiles.yml out from this folder into the root folder of your project `horrorland/profiles.yml`.
