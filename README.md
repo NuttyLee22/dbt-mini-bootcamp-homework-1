@@ -64,7 +64,7 @@ You’ve been tasked with answering:
 
 ### Step 1: Create a Snowflake Trial Account
 
-1. Go to [signup.snowflake.com](https://signup.snowflake.com/)
+1. Go to [signup.snowflake.com](https://signup.snowflake.com/?trial=student)
 2. Choose:
 
    * **Enterprise Edition**
@@ -106,7 +106,7 @@ This will create your raw tables.
 
 We’ll use **dbt Fusion**, the new Rust-powered dbt engine. dbt Fusion is still in beta, so sometimes we might use dbt Core. If you use Windows, read below.
 
-### ✅ Option 1 (Recommended): Install via VS Code Extension
+### ✅ Option 1 (Recommended - Only supported on MacOS/Linux): Install via VS Code Extension
 
 Search for `dbtLabsInc.dbt` in the Extensions tab or use these links:
 
@@ -123,7 +123,7 @@ It will ask you to register the extension within 14 days. You can register for f
 
 ---
 
-### 💻 Option 2: Install via CLI
+### 💻 Option 2: Install via CLI (Only supported on MacOS/Linux)
 
 #### macOS / Linux
 
@@ -134,40 +134,80 @@ curl -fsSL https://public.cdn.getdbt.com/fs/install/install.sh | sh -s -- --upda
 exec $SHELL
 ```
 
-#### Windows (via WSL - Recommended)
-If you're using Windows, we highly recommend enabling [WSL (Windows Subsystem for Linux)](https://learn.microsoft.com/en-us/windows/wsl/install) and following the Linux instructions above.
+---
 
-This ensures full compatibility and avoids common issues when installing dbt and Python dependencies natively on Windows.
-
-#### Windows (Native PowerShell - Not Fully Supported)
+### 🐧 Option 3: WSL (Recommended for Windows)
 > [!WARNING]
-> Native Windows installation is not officially supported and might not work for all users. Some workshop participants in > Brazil managed to install it this way, but YMMV.
+> Native dbt Fusion installation on Windows is not officially supported, so the work around is to install the dbt Fusion using WSL and VS Code.
 
-To try installing dbt Fusion CLI natively via PowerShell:
 
-```powershell
-irm https://public.cdn.getdbt.com/fs/install/install.ps1 | iex
-```
+##### 1. Installing WSL on Windows
+First thing to install the dbt-Fusion on Windows, you need to install the WSL in your Windows, for this you can use the [Official Microsoft tutorial](https://learn.microsoft.com/en-us/windows/wsl/install)
+
+
+##### 2. Installing WSL Extensions on VS Code
+After the WSL, Install two Extensions in VS Code: “WSL” and “Remote Explorer”, this is pretty straight foward, but if you have doubts, you can check the [Official VS Code Tutorial](https://code.visualstudio.com/docs/remote/wsl)
+
+<img src="./images/remote_explorer_wsl.png" alt="Remote Explorer" width="400"/>
+
+After this two steps, we are able to install the dbt-Fusion
+
+##### 3. Initialize the WSL on VS Code
+Click on the “Open a Remote Window” button on the bottom left corner of VS Code (Blue icon)
+
+<img src="./images/open_remote_window.png" alt="Open Remote Window" width="300"/>
+
+##### 4. Connect to WSL on VS Code
+Click on “Connect to WSL”, it will prompt you to install a version of Linux if you don't have one. You can choose any version, I'm using Ubuntu.
+
+<img src="./images/connect_to_wsl.png" alt="Connect to WSL" width="600"/>
+
+Wait till your WSL kicks up, then proceed to the next step.
+
+<img src="./images/connecting_to_wsl.png" alt="Connecting to WSL" width="400"/>
+
+Check if the WSL is running in the bottom left corner of VS Code
+
+<img src="./images/check_wsl_connected.png" alt="Check WSL connected" width="300"/>
+
+##### 5. Installing the dbt Extension on VS Code
+Navigate to the Extensions menu on the left and search for “dbt”, it should be the first extension to appear and install it.
+
+<img src="./images/install_dbt_extension.png" alt="Installing dbt Extension" width="700"/>
+
+##### 6. Installing the dbt Fusion
+And last but not least, installing the dbt fusion, you will need a terminal on VS Code and WSL activated for this step.
+You can open one in Terminal > New Terminal
+
+You just need to run the following command (copy and right click into the terminal): 
+
 ```bash
-Start-Process powershell
+curl -fsSL https://public.cdn.getdbt.com/fs/install/install.sh | sh -s -- --update
 ```
 
-You might need to **restart your computer** after installation.
+If you have any doubt, you can follow the instructions as you were installing dbt Fusion on Linux with this [Official dbt Tutorial](https://docs.getdbt.com/docs/fusion/install-fusion)
 
-#### ✅ Verify Installation
+<img src="./images/running_dbt_install_command.png" alt="Running dbt Fusion" width="600"/>
+
+
+##### 7. Check the install of dbt Fusion
+To test if it the installation worked, you need to kill the terminal, open a new one and type the command
 
 ```bash
 dbtf --version
 ```
 
-If that doesn’t work, try:
-```bash
-dbt --version
-```
+It should appear a message with the current version.
 
-If this command works instead, you can use `dbt` in all further commands.
 
-#### 🐍 Windows Fallback: Use dbt Core (Legacy CLI)
+<img src="./images/testing_dbtf.png" alt="Testing dbt Fusion" width="400"/>
+
+
+#### Note: you ALWAYS need to initialize the WSL before starting or working on a dbt Fusion project, otherwise it wont work.
+
+---
+
+### 🐍 Option 4:  Windows Fallback: Use dbt Core (Legacy CLI)
 
 If you can’t install dbt Fusion on Windows, you can fall back to the classic dbt Core CLI:
 
