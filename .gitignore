@@ -5,3 +5,6 @@
 */jaffle_shop
 */logs
 */log
+*/target
+logs
+venv
