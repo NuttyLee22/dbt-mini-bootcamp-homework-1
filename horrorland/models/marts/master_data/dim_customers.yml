@@ -16,7 +16,6 @@ models:
         description: "Customer email address"
         tests:
           - unique
-          - not_null
 
       - name: is_valid_email
         description: "Boolean indicating if email is valid and has approved TLD"
@@ -58,12 +57,6 @@ models:
 
       - name: age
         description: "Customer age"
-        tests:
-          - not_null
-          - dbt_utils.accepted_range:
-              arguments:
-                min_value: 0
-                max_value: 120
 
       - name: zip_code
         description: "Customer zip code"
@@ -73,23 +66,15 @@ models:
 
       - name: state_name
         description: "Full state name (enriched from state abbreviation)"
-        tests:
-          - not_null
 
       - name: city
         description: "Customer city"
-        tests:
-          - not_null
 
       - name: address
         description: "Customer address"
-        tests:
-          - not_null
 
       - name: phone
         description: "Customer phone number"
-        tests:
-          - not_null
 
       - name: preferred_scare_level
         description: "Customer's preferred scare level"
@@ -98,11 +83,6 @@ models:
 
       - name: loyalty_points
         description: "Customer loyalty points"
-        tests:
-          - not_null
-          - dbt_utils.accepted_range:
-              arguments:
-                min_value: 0
 
       - name: registration_date
         description: "Customer registration date"

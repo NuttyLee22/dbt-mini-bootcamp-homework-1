@@ -130,7 +130,7 @@ with
                 when is_vip_member = false and loyalty_points >= 200 then 'VIP Upsell Candidate'
                 when loyalty_points between 100 and 199 then 'Loyalty Program Promoter'
                 when marketing_opt_in = false and loyalty_points >= 50 then 'Marketing Opt-in Candidate'
-                when preferred_scare_level in ('Low', 'None') and age between 18 and 35 then 'Scare Level Upsell'
+                when preferred_scare_level in (1, 2) and age between 18 and 35 then 'Scare Level Upsell'
                 else 'Standard'
             end as upsell_opportunity
 

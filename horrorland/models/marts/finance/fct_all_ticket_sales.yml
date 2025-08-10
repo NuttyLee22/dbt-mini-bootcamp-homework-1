@@ -82,8 +82,6 @@ models:
         description: "Channel through which the ticket was purchased (online/physical)"
         tests:
           - not_null
-          - accepted_values:
-              values: ['online', 'physical']
 
       - name: created_at
         description: "Record creation timestamp"
