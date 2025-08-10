@@ -8,3 +8,6 @@
 */target
 logs
 venv
+edr_target
+horrorland/edr_target
+horrorland/package-lock.yml
