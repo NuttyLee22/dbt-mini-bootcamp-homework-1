@@ -1,4 +1,4 @@
-# 🎃 Horrorland dbt Workshop
+# 🎃 Horrorland dbt Bootcamp
 
 [![Powered by DataGym.io](https://img.shields.io/badge/Powered%20by-DataGym.io-%23005FFF?style=for-the-badge\&logo=data\&logoColor=white)](https://www.datagym.io)
 
@@ -243,7 +243,7 @@ dbt --version
 
 ## 🛠️ Project Setup
 
-This repository contains the complete dbt project for the Horrorland workshop. The project has already been initialized and configured.
+This repository contains the complete dbt project for the Horrorland Bootcamp. The project has already been initialized and configured.
 
 1. Make sure you have completed the setup from the main bootcamp repository (https://github.com/DataGym-io/2025-08-dbt-mini-bootcamp)
 2. The project is already initialized, so you don't need to run `dbtf init`
