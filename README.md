@@ -36,8 +36,7 @@
 * [👻 Context](#-context)
 * [❄️ Getting Started with Snowflake](#️-getting-started-with-snowflake)
 * [⚙️ Setting Up dbt Fusion](#️-setting-up-dbt-fusion)
-* [🛠️ Initializing Your Project](#️initializing-your-project)
-* [🧹 Clean Up Default Folders](#️clean-up-default-folders)
+* [🛠️ Project Setup](#️-project-setup)
 * [💡 What You’ll Learn](#-what-youll-learn)
 * [💬 Support & Questions](#-support--questions)
 
@@ -242,81 +241,15 @@ dbt --version
 
 ---
 
-## 🛠️ Initializing Your Project
+## 🛠️ Project Setup
 
-Use `dbtf init` to create your dbt project from scratch.
+This repository contains the complete dbt project for the Horrorland workshop. The project has already been initialized and configured.
 
-```bash
-dbtf init --project-name horrorland
-```
-
-You will be prompted to fill:
-
-| Prompt      | Recommended Value                    |
-| ----------- | ------------------------------------ |
-| Adapter     | `snowflake`                          |
-| Account     | Your Account Identifier (e.g., RVDLYID-LX74876)              |
-| User        | Your Snowflake Username  (e.g., bruno)             |
-| Auth Method | `password`                           |
-| Password    | Your Snowflake Password              |
-| MFA         | `N` (not required for workshop)      |
-| Role        | `ACCOUNTADMIN` *(for workshop only)* |
-| Database    | `DEV_DATABASE` *(created in the ingestion step)*     |
-| Warehouse   | `COMPUTE_WH`                         |
-| Schema      | The name you want (e.g. `BRUNO`)             |
-
-You should see a confirmation like:
-
-<img src="./images/connection.png" alt="Account Identifier" width="400"/>
-
-> [!WARNING]
-> If you face an error in Windows that says the `profiles.yml` was not found
-> Probably it was created within a .dbt folder in your project.
-> Move the profiles.yml out from this folder into the root folder of your project `horrorland/profiles.yml`.
-> This should fix the issue.
-
----
-
-## 🧹 Clean Up Default Folders
-
-MacOS/Linux
-```bash
-cd horrorland
-```
-```bash
-rm -rf seeds macros target
-```
-```bash
-rm -rf models/*
-```
-
-Windows (PowerShell)
-```bash
-cd horrorland
-```
-```bash
-Remove-Item -Recurse -Force .\seeds, .\macros, .\target
-```
-```bash
-Remove-Item -Recurse -Force .\models\*
-```
-
-## 🔄 Reload window
-
-For the extension to work properly, your VSCode/Cursor workspace must be the root folder of the dbt_project, in this case `/horrorland`.
-
-Make sure you are within the `/horrorland` folder in your terminal, and run
-
-```bash
-code . #if VSCode
-```
-```bash
-cursor . #if Cursor
-```
-> If `code .` or `cursor .` doesn't work, open VS Code or Cursor manually and choose **File > Open Folder...**, then select the `horrorland` folder.
-
-
-Now you're ready to start modeling!
+1. Make sure you have completed the setup from the main bootcamp repository (https://github.com/DataGym-io/2025-08-dbt-mini-bootcamp)
+2. The project is already initialized, so you don't need to run `dbtf init`
+3. Use the same `profiles.yml` from your previous setup
+   - If it's in `~/.dbt/profiles.yml` (Mac/Linux) or equivalent Windows location, you're good to go
+   - If it was in the project folder, copy it to the `/horrorland` directory
 
 ---
 
