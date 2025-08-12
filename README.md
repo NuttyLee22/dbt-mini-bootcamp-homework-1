@@ -2,6 +2,11 @@
 
 [![Powered by DataGym.io](https://img.shields.io/badge/Powered%20by-DataGym.io-%23005FFF?style=for-the-badge\&logo=data\&logoColor=white)](https://www.datagym.io)
 
+**Related repos:**
+- **Template**: https://github.com/DataGym-io/2025-08-dbt-mini-bootcamp
+- **Homework 1**: https://github.com/DataGym-io/2025-08-dbt-mini-bootcamp-homework-1
+- **Airflow Integration**: https://github.com/DataGym-io/2025-08-dbt-mini-bootcamp-airflow
+
 > 🚨 **IMPORTANT NOTICE – BOOTCAMP TEMPLATE**
 > This repository is used **exclusively for the DataGym.io dbt mini bootcamp**.
 >
@@ -179,7 +184,7 @@ Navigate to the Extensions menu on the left and search for “dbt”, it should 
 And last but not least, installing the dbt fusion, you will need a terminal on VS Code and WSL activated for this step.
 You can open one in Terminal > New Terminal
 
-You just need to run the following command (copy and right click into the terminal): 
+You just need to run the following command (copy and right click into the terminal):
 
 ```bash
 curl -fsSL https://public.cdn.getdbt.com/fs/install/install.sh | sh -s -- --update
