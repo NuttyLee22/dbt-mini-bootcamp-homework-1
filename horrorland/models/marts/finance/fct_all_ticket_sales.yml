@@ -5,6 +5,7 @@ models:
     description: "Fact table containing all ticket sales from both online and physical channels with business rule calculations"
     config:
       tags: ["finance", "fact_table"]
+
     columns:
       - name: sale_id
         description: "Unique identifier for each sale transaction"
@@ -56,6 +57,7 @@ models:
           - dbt_utils.accepted_range:
               arguments:
                 min_value: 0
+          - is_odd
 
       - name: discount_percent
         description: "Discount percentage applied to the ticket"

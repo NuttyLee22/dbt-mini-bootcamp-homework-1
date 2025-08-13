@@ -141,3 +141,28 @@ models:
           - not_null
           - accepted_values:
               values: ['VIP Upsell Candidate', 'Loyalty Program Promoter', 'Marketing Opt-in Candidate', 'Scare Level Upsell', 'Standard']
+
+
+unit_tests:
+  - name: test_is_valid_email_address
+    description: "Check my is_valid_email logic captures all known edge cases - emails without ., emails without @, and emails from invalid domains."
+    model: dim_customers
+    given:
+      - input: ref('stg_customer_data__customers')
+        rows:
+          - {customer_id: 1, email: cool@example.com}
+          - {customer_id: 2, email: cool@unknown.com}
+          - {customer_id: 3, email: badgmail.com}
+          - {customer_id: 4, email: missingdot@gmailcom}
+      - input: ref('seed_us_states')
+        rows:
+          - {}
+      - input: ref('seed_valid_top_level_domains')
+        rows:
+          - {domain: example.com}
+    expect:
+      rows:
+        - {customer_id: 1, email: cool@example.com,    is_valid_email: true}
+        - {customer_id: 2, email: cool@unknown.com,    is_valid_email: false}
+        - {customer_id: 3, email: badgmail.com,        is_valid_email: false}
+        - {customer_id: 4, email: missingdot@gmailcom, is_valid_email: false}

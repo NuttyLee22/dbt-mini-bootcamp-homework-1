@@ -76,7 +76,7 @@ with
                 and exists (
                     select 1
                     from valid_tlds
-                    where lower(split_part(email, '.', -1)) = lower(domain)
+                    where lower(split_part(email, '@', -1)) = lower(domain)
                 ) then true
                 else false
             end as is_valid_email

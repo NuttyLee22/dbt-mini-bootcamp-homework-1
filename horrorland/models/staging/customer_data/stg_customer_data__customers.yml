@@ -8,6 +8,9 @@ models:
         description: "Boolean indicating if customer is VIP member"
         tests:
           - not_null
+          - unique:
+              config:
+                severity: warn
           - accepted_values:
               values: [true, false]
 

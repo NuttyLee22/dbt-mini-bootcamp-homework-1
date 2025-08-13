@@ -55,7 +55,10 @@ with
             , ticket_price
             , discount_percent
             , visit_hour
-            , payment_method
+            , case
+                when payment_method = 'mobile_pay' then 'other'
+                else payment_method
+            end as payment_method
             , purchase_channel
             , created_at
             , updated_at
