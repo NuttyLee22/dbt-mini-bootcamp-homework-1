@@ -39,3 +39,60 @@ sources:
           - name: updated_at
             tests:
               - not_null
+      - name: marketing_haunted_houses
+        columns:
+          - name: created_at
+          - name: description
+          - name: difficulty_level
+          - name: haunted_house_id
+          - name: image_url
+          - name: is_active
+          - name: is_featured
+          - name: marketing_name
+          - name: marketing_tagline
+          - name: recommended_for
+          - name: updated_at
+
+      - name: merchandise_products
+        columns:
+          - name: base_inventory_level
+          - name: base_price
+          - name: category
+          - name: colors
+          - name: cost_price
+          - name: created_at
+          - name: current_inventory
+          - name: description
+          - name: is_active
+          - name: launch_date
+          - name: limited_edition
+          - name: material
+          - name: product_id
+          - name: product_name
+          - name: profit_margin_percent
+          - name: reorder_point
+          - name: seasonal
+          - name: size_options
+          - name: supplier
+          - name: updated_at
+
+      - name: ops_haunted_houses
+        columns:
+          - name: accessibility_friendly
+          - name: created_at
+          - name: duration_minutes
+          - name: emergency_exits
+          - name: fear_level
+          - name: haunted_house_id
+          - name: house_name
+          - name: house_size_sqft
+          - name: house_status
+          - name: max_capacity_per_group
+          - name: max_daily_capacity
+          - name: min_age_requirement
+          - name: opening_year
+          - name: park_area
+          - name: safety_rating
+          - name: staff_required
+          - name: theme
+          - name: updated_at

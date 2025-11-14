@@ -1,0 +1,7 @@
+snapshots:
+  - name: snp_merchandise_products
+    relation: source('park_assets', 'merchandise_products')
+    config:
+      strategy: timestamp
+      unique_key: product_id
+      updated_at: updated_at
