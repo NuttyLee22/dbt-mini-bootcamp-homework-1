@@ -1,280 +1,289 @@
-# 🎃 Horrorland dbt Bootcamp
+# 🎃 Horrorland dbt Homework - Week 1
 
 [![Powered by DataGym.io](https://img.shields.io/badge/Powered%20by-DataGym.io-%23005FFF?style=for-the-badge\&logo=data\&logoColor=white)](https://www.datagym.io)
 
 **Related repos:**
 - **Template**: https://github.com/DataGym-io/2025-08-dbt-mini-bootcamp
-- **Homework 1**: https://github.com/DataGym-io/2025-08-dbt-mini-bootcamp-homework-1
+- **Complete Code**: https://github.com/DataGym-io/2025-08-dbt-mini-bootcamp-complete
 - **Airflow Integration**: https://github.com/DataGym-io/2025-08-dbt-mini-bootcamp-airflow
 
-> 🚨 **IMPORTANT NOTICE – BOOTCAMP TEMPLATE**
-> This repository is used **exclusively for the DataGym.io dbt mini bootcamp**.
+> 🚨 **IMPORTANT NOTICE – HOMEWORK ASSIGNMENT**
+> This is the **Week 1 Homework** for the DataGym.io dbt mini bootcamp.
 >
-> ✅ To work on your project:
->
-> 1. **Clone this repository**
->
->    ```bash
->    git clone https://github.com/datagym-io/2025-08-dbt-mini-bootcamp.git
->    ```
->    ```bash
->    cd 2025-08-dbt-mini-bootcamp
->    ```
-> 2. **Create your own branch** (replace `<your_name>`):
->
->    ```bash
->    git checkout -b <your_name>
->    ```
-> 3. Work only inside your branch.
-> 4. **❌ Do NOT open PRs or merge anything into the `main` branch.**
-
+> ✅ **Before starting:**
+> 1. Make sure you have completed the setup from the main bootcamp repository
+> 2. The project is already initialized, so you don't need to run `dbtf init`
+> 3. Use the same `profiles.yml` from your previous setup
+>    - If it's in `~/.dbt/profiles.yml` (Mac/Linux) or equivalent Windows location, you're good to go
+>    - If it was in the project folder, copy it to the `/horrorland` directory
 
 ---
 
 ## 📚 Table of Contents
 
 * [👻 Context](#-context)
-* [❄️ Getting Started with Snowflake](#️-getting-started-with-snowflake)
-* [⚙️ Setting Up dbt Fusion](#️-setting-up-dbt-fusion)
-* [🛠️ Project Setup](#️-project-setup)
-* [💡 What You’ll Learn](#-what-youll-learn)
-* [💬 Support & Questions](#-support--questions)
+* [🎯 What You'll Build](#-what-youll-build)
+* [📋 Tasks](#-tasks)
+* [📤 Submission](#-submission)
 
 ---
 
 ## 👻 Context
 
-You work at **Horrorland**, a spooky and thrilling theme park.
+You work at **Horrorland**, a spooky and thrilling theme park, as an **Analytics Engineer**.
 
-The Halloween season is near, but something is wrong:
+Your mission is to transform raw data into well-structured facts and dimensions for the analytics team. This week, you'll focus on **merchandise sales** and **haunted houses** data.
 
-* Visitors are unhappy
-* VIPs may not be getting their money’s worth
-* Ticket pricing feels off
-* Fear levels may or may not influence ratings
-
-You’ve been tasked with answering:
-
-1. What are the top selling products?
-2. How do daily wait times correlate with customer satisfaction scores?
-3. What are our most expensive costs?
-4. What are the most common types of incidents per haunted house?
-5. And more
-
+The Halloween season is near, and the business needs insights on:
+- Product performance and sales trends
+- Haunted house operations and customer experience
+- Revenue analysis across different sales channels
 
 ---
 
-## ❄️ Getting Started with Snowflake
+## 🎯 What You'll Build
 
-### Step 1: Create a Snowflake Trial Account
+In this homework, you'll create:
 
-1. Go to [signup.snowflake.com](https://signup.snowflake.com/?trial=student)
-2. Choose:
-
-   * **Enterprise Edition**
-   * **AWS** as the cloud provider
-3. Set up a **username** and **password**
-4. Save your **Account Identifier**
-
-### How to find your Account Identifier:
-
-1. Open the **Snowflake Web UI**
-2. Click your **user avatar** (bottom-left)
-3. Go to **Account > View Account Details**
-<img src="./images/account_id_1.png" alt="Account Identifier" width="400"/>
-4. Copy the `Account Identifier`, e.g.:
-   `RVDLYID-LX74876`
-<img src="./images/account_id_2.png" alt="Account Identifier" width="400"/>
+1. **Sources** - Define data sources for merchandise and haunted house data
+2. **Staging Models** - Clean and standardize raw data
+3. **Snapshots** - Track changes in product data over time
+4. **Dimension Tables** - `dim_products` and `dim_haunted_houses`
+5. **Fact Table** - `fct_all_merchandise_sales`
+6. **Documentation** - Add descriptions and tests to your models
 
 ---
 
-### Step 2: Ingest Raw Data
+## 📋 Tasks
 
-We'll simulate data ingestion using SQL scripts.
+### 2.1 Define Sources
 
-1. In the Snowflake UI, click **Projects** > **Worksheets** > **+**
-<img src="./images/ingest_1.png" alt="Account Identifier" width="400"/>
+#### In `horrorland/models/staging/park_assets/_sources.yml`:
+Add these sources:
+- `MARKETING_HAUNTED_HOUSES`
+- `MERCHANDISE_PRODUCTS`
+- `OPS_HAUNTED_HOUSES`
 
-2. If prompted, use the role **ACCOUNTADMIN** and the warehouse **COMPUTE_WH**
-<img src="./images/ingest_2.png" alt="Account Identifier" width="400"/>
+#### In `horrorland/models/staging/sales/_sources.yml`:
+Add these sources:
+- `MERCHANDISE_SALES_ONLINE`
+- `MERCHANDISE_SALES_PHYSICAL`
 
-3. Copy the contents of [snowflake_insert.txt](./snowflake_insert.txt)
-4. Paste into the worksheet, select everything, and **run** it
-<img src="./images/ingest_3.png" alt="Account Identifier" width="400"/>
-This will create your raw tables.
+**Add freshness checks for merchandise sales sources:**
+- `warn_after: 6 hours`
+- `error_after: 18 hours`
 
+### 2.2 Create Staging Models
+
+Create a staging model for each source in their respective folders:
+- `stg_park_assets__marketing_haunted_houses.sql`
+- `stg_park_assets__merchandise_products.sql`
+- `stg_park_assets__ops_haunted_houses.sql`
+- `stg_sales__merchandise_sales_online.sql`
+- `stg_sales__merchandise_sales_physical.sql`
+
+Important: Merchandise sales price fields arrive in cents. In `stg_sales__merchandise_sales_online.sql` and `stg_sales__merchandise_sales_physical.sql`, use the existing `cents_to_dollars` macro to convert price fields to dollars, while keeping the same column names for correction purposes (e.g., convert `unit_price` and `total_price` from cents to dollars but output columns remain `unit_price` and `total_price`). Do not introduce new columns for converted values.
+
+### 2.3 Create Snapshot
+
+Create a snapshot in `/snapshots` called `snp_merchandise_products.yml` to track changes in the merchandise products source.
+
+**Use the timestamp strategy** for this snapshot to track changes based on the `updated_at` field.
+
+The staging model `stg_park_assets__merchandise_products.sql` should select from this snapshot.
+
+
+### 2.4 Build Marts
+
+#### Dimension Tables (in `models/marts/master_data/`):
+
+**`dim_products.sql`** - Product information and attributes
+
+**Required columns from staging:**
+- `product_id` (Primary key)
+- `product_name`, `description`, `category`
+- `base_price`, `cost_price`, `profit_margin_percent`
+- `current_inventory`, `base_inventory_level`, `reorder_point`
+- `material`, `size_options`, `colors`, `supplier`
+- `launch_date`, `is_active`, `seasonal`, `limited_edition`
+- `created_at`, `updated_at`
+
+**Calculated columns to add:**
+- `price_tier`: Categorize products as 'Premium' (≥$50), 'Mid-Range' (≥$25), 'Standard' (≥$10), or 'Budget' (<$10) based on `base_price`
+- `margin_category`: Categorize as 'High Margin' (≥80%), 'Medium Margin' (≥60%), 'Low Margin' (≥40%), or 'Minimal Margin' (<40%) based on `profit_margin_percent`
+- `product_age`: Categorize as 'New' (launched within 1 year), 'Recent' (within 3 years), 'Established' (within 5 years), or 'Classic' (older than 5 years) based on `launch_date`
+
+**`dim_haunted_houses.sql`** - Haunted house details and characteristics
+
+Combine data from `stg_park_assets__marketing_haunted_houses` and `stg_park_assets__ops_haunted_houses` by joining on `haunted_house_id` (consider a full outer join to preserve rows present in only one source).
+
+**Required columns from staging:**
+- `haunted_house_id` (Primary key)
+- Marketing fields: `marketing_name`, `description`, `marketing_tagline`, `difficulty_level`, `recommended_for`, `is_featured`, `is_active`, `image_url`
+- Operations fields: `house_name`, `fear_level`, `emergency_exits`, `staff_required`, `house_size_sqft`, `park_area`, `min_age_requirement`, `opening_year`, `safety_rating`, `max_daily_capacity`, `theme`, `accessibility_friendly`, `max_capacity_per_group`, `house_status`, `duration_minutes`
+- Timestamps: `marketing_created_at`, `marketing_updated_at`, `ops_created_at`, `ops_updated_at`
+
+**Calculated columns to add:**
+- `size_category`: Categorize as 'Large' (≥10,000 sqft), 'Medium' (≥5,000 sqft), or 'Small' (<5,000 sqft) based on `house_size_sqft`
+- `age_category`: Categorize as 'New' (opened ≥2020), 'Recent' (≥2010), 'Established' (≥2000), or 'Classic' (<2000) based on `opening_year`
+
+#### Fact Table (in `models/marts/finance/`):
+
+**`fct_all_merchandise_sales.sql`** - Sales transactions combining online and physical sales
+
+Build this table by UNION ALL of `stg_sales__merchandise_sales_online` and `stg_sales__merchandise_sales_physical`. Add a boolean flag `is_online` to distinguish the channel.
+
+**Required columns from staging:**
+- `sale_id` (Primary key)
+- `customer_id`, `product_id`, `product_name`, `category`
+- `sale_date`, `sale_timestamp`, `quantity`, `unit_price`, `total_price`
+- `discount_applied`, `payment_method`, `staff_member`, `haunted_house_id`
+- `created_at`, `updated_at`
+- `is_online` (Boolean flag: true for online sales, false for physical sales)
+
+**Calculated columns to add:**
+- `discount_category`: Categorize as 'High Discount' (≥50%), 'Medium Discount' (≥25%), 'Low Discount' (>0%), or 'No Discount' (0%) based on `discount_applied`
+- `purchase_type`: Categorize as 'Bulk Purchase' (≥5 items), 'Multiple Items' (≥3 items), or 'Single Item' (<3 items) based on `quantity`
+- `service_type`: Categorize as 'Staff Assisted' (when `staff_member` is not null) or 'Self Service' (when `staff_member` is null)
+
+### 2.5 Add Documentation
+
+Add comprehensive documentation to your dimension and fact tables including:
+- Model descriptions
+- Column descriptions
 
 ---
 
-## ⚙️ Setting Up dbt Fusion
+## 📤 Submission
 
-We’ll use **dbt Fusion**, the new Rust-powered dbt engine. dbt Fusion is still in beta, so sometimes we might use dbt Core. If you use Windows, read below.
+### Before Submitting
 
-### ✅ Option 1 (Recommended - Only supported on MacOS/Linux): Install via VS Code Extension
+⚠️ **IMPORTANT**: Before creating your ZIP file, delete these folders:
+- `dbt_packages/`
+- `dbt_internal_packages/`
+- `logs/`
+- `target/`
+- `venv/` (if present)
 
-Search for `dbtLabsInc.dbt` in the Extensions tab or use these links:
+These folders can become quite heavy and are not required for submission.
 
-* [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=dbtLabsInc.dbt)
-* [Cursor Marketplace](https://marketplace.cursorapi.com/items?itemName=dbtLabsInc.dbt)
+### Required Files/Folders
 
-It installs dbt Fusion automatically.
+Your submission should include:
+- `models/`
+- `seeds/`
+- `snapshots/`
 
+### How to Submit
 
-<img src="./images/extension.png" alt="Account Identifier" width="400"/>
-
-
-It will ask you to register the extension within 14 days. You can register for free.
+1. Compress the entire `horrorland` folder into a ZIP file
+2. Upload the ZIP file to the assignments page
 
 ---
 
-### 💻 Option 2: Install via CLI (Only supported on MacOS/Linux)
+## 💡 Learning Objectives
 
-#### macOS / Linux
+By completing this homework, you'll master:
+- ✅ Setting up sources in dbt
+- ✅ Creating staging models for data cleaning
+- ✅ Building dimension and fact tables
+- ✅ Implementing snapshots for change tracking
+- ✅ Adding comprehensive documentation
+- ✅ Following dbt best practices and naming conventions
 
+---
+
+## 🛠️ Essential dbt Commands
+
+### Install Dependencies
+> **Note**: This step is only needed if using dbt Core. dbt Fusion handles dependencies automatically.
+Before running any models, install the packages defined in `packages.yml`:
 ```bash
-curl -fsSL https://public.cdn.getdbt.com/fs/install/install.sh | sh -s -- --update
+dbt deps
 ```
+
+### Build Your Models
+To create all tables and views in your Snowflake schema:
 ```bash
-exec $SHELL
+dbt build
 ```
+
+### Run Specific Models
+```bash
+dbt build -s your_model_name
+```
+
+**Useful selectors:**
+- `+your_model_name` → builds the model and its **parents (upstream models)**
+- `your_model_name+` → builds the model and all **children (downstream models)**
+- `+your_model_name+` → builds **everything related** (parents and children)
+
+### Generate Documentation
+```bash
+dbt docs generate
+dbt docs serve
+```
+
+### Other Useful Commands
+| Command | Purpose |
+|---------|---------|
+| `dbt run` | Runs only models (not tests or seeds) |
+| `dbt test` | Runs tests defined in `.yml` files |
+| `dbt clean` | Removes `dbt_modules` and `target/` |
+| `dbt compile` | Compiles your models without running them |
+| `dbt ls -s tag:your_tag` | Selects models by tag |
 
 ---
 
-### 🐧 Option 3: WSL (Recommended for Windows)
-> [!WARNING]
-> Native dbt Fusion installation on Windows is not officially supported, so the work around is to install the dbt Fusion using WSL and VS Code.
+## 📂 Project Structure
 
+Understanding your dbt project structure:
 
-##### 1. Installing WSL on Windows
-First thing to install the dbt-Fusion on Windows, you need to install the WSL in your Windows, for this you can use the [Official Microsoft tutorial](https://learn.microsoft.com/en-us/windows/wsl/install)
+- **`models/`**: Contains all your SQL models (staging, marts, etc.)
+- **`macros/`**: Custom macros and reusable SQL functions
+- **`seeds/`**: CSV files that get loaded into your database
+- **`snapshots/`**: Tracks changes in your source data over time
+- **`dbt_project.yml`**: Project configuration and settings
+- **`packages.yml`**: External packages and dependencies
 
-
-##### 2. Installing WSL Extensions on VS Code
-After the WSL, Install two Extensions in VS Code: “WSL” and “Remote Explorer”, this is pretty straight foward, but if you have doubts, you can check the [Official VS Code Tutorial](https://code.visualstudio.com/docs/remote/wsl)
-
-<img src="./images/remote_explorer_wsl.png" alt="Remote Explorer" width="400"/>
-
-After this two steps, we are able to install the dbt-Fusion
-
-##### 3. Initialize the WSL on VS Code
-Click on the “Open a Remote Window” button on the bottom left corner of VS Code (Blue icon)
-
-<img src="./images/open_remote_window.png" alt="Open Remote Window" width="300"/>
-
-##### 4. Connect to WSL on VS Code
-Click on “Connect to WSL”, it will prompt you to install a version of Linux if you don't have one. You can choose any version, I'm using Ubuntu.
-
-<img src="./images/connect_to_wsl.png" alt="Connect to WSL" width="600"/>
-
-Wait till your WSL kicks up, then proceed to the next step.
-
-<img src="./images/connecting_to_wsl.png" alt="Connecting to WSL" width="400"/>
-
-Check if the WSL is running in the bottom left corner of VS Code
-
-<img src="./images/check_wsl_connected.png" alt="Check WSL connected" width="300"/>
-
-##### 5. Installing the dbt Extension on VS Code
-Navigate to the Extensions menu on the left and search for “dbt”, it should be the first extension to appear and install it.
-
-<img src="./images/install_dbt_extension.png" alt="Installing dbt Extension" width="700"/>
-
-##### 6. Installing the dbt Fusion
-And last but not least, installing the dbt fusion, you will need a terminal on VS Code and WSL activated for this step.
-You can open one in Terminal > New Terminal
-
-You just need to run the following command (copy and right click into the terminal):
-
-```bash
-curl -fsSL https://public.cdn.getdbt.com/fs/install/install.sh | sh -s -- --update
-```
-
-If you have any doubt, you can follow the instructions as you were installing dbt Fusion on Linux with this [Official dbt Tutorial](https://docs.getdbt.com/docs/fusion/install-fusion)
-
-<img src="./images/running_dbt_install_command.png" alt="Running dbt Fusion" width="600"/>
-
-
-##### 7. Check the install of dbt Fusion
-To test if it the installation worked, you need to kill the terminal, open a new one and type the command
-
-```bash
-dbtf --version
-```
-
-It should appear a message with the current version.
-
-
-<img src="./images/testing_dbtf.png" alt="Testing dbt Fusion" width="400"/>
-
-
-#### Note: you ALWAYS need to initialize the WSL before starting or working on a dbt Fusion project, otherwise it wont work.
+**Generated folders (can be deleted):**
+- **`dbt_packages/`**: Installed packages
+- **`logs/`**: dbt execution logs
+- **`target/`**: Compiled SQL and artifacts
 
 ---
 
-### 🐍 Option 4:  Windows Fallback: Use dbt Core (Legacy CLI)
+## 📚 Helpful Resources
 
-If you can’t install dbt Fusion on Windows, you can fall back to the classic dbt Core CLI:
+### dbt Documentation
+- [dbt best practices for enterprises](https://www.phdata.io/blog/accelerating-and-scaling-dbt-for-the-enterprise/)
+- [dbt cheat sheet](https://github.com/bruno-szdl/cheatsheets/blob/main/dbt_cheat_sheet.pdf)
+- [Models](https://docs.getdbt.com/docs/build/sql-models)
+- [Tests](https://docs.getdbt.com/docs/build/data-tests)
+- [Sources](https://docs.getdbt.com/docs/build/sources)
+- [Seeds](https://docs.getdbt.com/docs/build/seeds)
+- [Snapshots](https://docs.getdbt.com/docs/build/snapshots)
+- [dbt_project.yml](https://docs.getdbt.com/reference/dbt_project.yml)
+- [profiles.yml](https://docs.getdbt.com/docs/core/connect-data-platform/profiles.yml)
+- [Commands](https://docs.getdbt.com/reference/commands/build)
+- [Node selection](https://docs.getdbt.com/reference/node-selection/syntax)
 
-##### 1. Create a virtual environment
-
-**On Windows CMD or PowerShell:**
-
-```powershell
-python -m venv venv
-```
-```powershell
-.\venv\Scripts\activate
-```
-
-##### 2. Install dbt for Snowflake
-
-```bash
-pip install dbt-snowflake
-```
-
-##### 3. Verify Installation
-
-```bash
-dbt --version
-```
-
-
----
-
-## 🛠️ Project Setup
-
-This repository contains the complete dbt project for the Horrorland Bootcamp. The project has already been initialized and configured.
-
-1. Make sure you have completed the setup from the main bootcamp repository (https://github.com/DataGym-io/2025-08-dbt-mini-bootcamp)
-2. The project is already initialized, so you don't need to run `dbtf init`
-3. Use the same `profiles.yml` from your previous setup
-   - If it's in `~/.dbt/profiles.yml` (Mac/Linux) or equivalent Windows location, you're good to go
-   - If it was in the project folder, copy it to the `/horrorland` directory
-
----
-
-## 💡 What You’ll Learn
-
-- ✔️ Connect dbt Fusion to Snowflake
-- ✔️ Ingest and clean raw data
-- ✔️ Build a star schema
-- ✔️ Add freshness and data quality tests
-- ✔️ Use `sources`, `staging`, `marts`
-- ✔️ Apply unit tests and documentation
-- ✔️ Explore dbt lineage and insights
+### Pro Tips
+- Check compiled SQL in `target/compiled/` to see exactly what dbt sends to Snowflake
+- Use `dbt list` to see all available models, seeds, and snapshots
+- Combine selectors for powerful workflows: `dbt build -s staging+ --exclude tag:skip_ci`
 
 ---
 
 ## 💬 Support & Questions
 
 Use the appropriate Discord channels:
-
-* `❓-duvidas-🇧🇷` — Portuguese Q\&A
-* `❓-questions-🇺🇸` — English Q\&A
-* `support-suporte-🌎` — General help
+- `❓-duvidas-🇧🇷` — Portuguese Q&A
+- `❓-questions-🇺🇸` — English Q&A
+- `support-suporte-🌎` — General help
 
 Or visit [DataGym.io](https://www.datagym.io)
 
 ---
 
-👻 Good luck, and may your data models never haunt you!
+👻 Good luck with your data modeling adventure!
